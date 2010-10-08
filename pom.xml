@@ -12,7 +12,6 @@
 		<module>virtualCube</module>
 		<module>gui</module>
 		<module>core</module>
-		<module>localRepository</module>
 	</modules>
 	
   <dependencies>
@@ -36,11 +35,4 @@
 			<version>2.5</version>
 		</dependency>
   </dependencies>
-  
-  <repositories>
-		<repository>
-			<id>local</id>
-			<url>file:${basedir}/localRepository</url>
-		</repository>
-	</repositories>
 </project>
