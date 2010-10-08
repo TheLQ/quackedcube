@@ -12,6 +12,7 @@
 		<module>virtualCube</module>
 		<module>gui</module>
 		<module>core</module>
+		<module>localRepository</module>
 	</modules>
 	
   <dependencies>
