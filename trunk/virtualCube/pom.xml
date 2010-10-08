@@ -18,10 +18,16 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
       <artifactId>core</artifactId>
       <version>${project.version}</version>
     </dependency>
-	<dependency>
-      <groupId>${project.groupId}</groupId>
-      <artifactId>localRepository</artifactId>
-      <version>${project.version}</version>
+    <dependency>
+      <groupId>ch.randelshofer</groupId>
+      <artifactId>CubeTwister</artifactId>
+      <version>2.0-Alpha132</version>
     </dependency>
   </dependencies>
+  <repositories>
+    <repository>
+      <id>local</id>
+      <url>file://${basedir}/../localRepository</url>
+    </repository>
+  </repositories>
 </project>
