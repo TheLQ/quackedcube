@@ -1,0 +1,45 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org</groupId>
+  <artifactId>quackedcube</artifactId>
+  <packaging>pom</packaging>
+  <version>0.5</version>
+  <name>QuackedCube</name>
+  <url>http://quackedcube.googlecode.com</url>
+  
+  <modules>
+		<module>virtualCube</module>
+		<module>gui</module>
+		<module>core</module>
+	</modules>
+	
+  <dependencies>
+    <!--Use TestNG as testing framework-->
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>5.14</version>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>junit</artifactId>
+					<groupId>junit</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!--Could be useful-->
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.5</version>
+		</dependency>
+  </dependencies>
+  
+  <repositories>
+		<repository>
+			<id>local</id>
+			<url>file:${basedir}/localRepository</url>
+		</repository>
+	</repositories>
+</project>
