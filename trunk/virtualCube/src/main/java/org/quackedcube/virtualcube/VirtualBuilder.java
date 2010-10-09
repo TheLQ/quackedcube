@@ -140,6 +140,8 @@ public class VirtualBuilder extends JFrame implements Builder {
 		// Add the canvas to the panel
 		panel.add(canvas.getVisualComponent());
 
+		new RotateThread().start();
+
 		return panel;
 	}
 
