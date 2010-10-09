@@ -13,7 +13,7 @@
 	<modules>
 		<module>core</module>
 		<module>virtualCube</module>
-		<module>gui</module>
+		<module>impl</module>
 	</modules>
 
 	<!--Licensed under GPL-->

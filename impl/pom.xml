@@ -9,8 +9,8 @@
 	</parent>
 
 	<groupId>quackedcube</groupId>
-	<artifactId>gui</artifactId>
-	<name>gui</name>
+	<artifactId>impl</artifactId>
+	<name>impl</name>
 	<packaging>jar</packaging>
 	
 	<dependencies>
