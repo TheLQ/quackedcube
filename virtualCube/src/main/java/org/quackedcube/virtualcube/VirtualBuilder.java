@@ -16,6 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with QuackedCube.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package org.quackedcube.virtualcube;
 
 import ch.randelshofer.geom3d.JCanvas3D;
@@ -55,6 +56,7 @@ public class VirtualBuilder extends JFrame implements Builder {
 	private final VirtualMotor bottomMotor;
 	private final VirtualMotor leftMotor;
 	private final VirtualMotor rightMotor;
+	private Thread rotateThread;
 
 	public VirtualBuilder() {
 		super("CubeTwister Rubik's Cube Panel Demo");
@@ -140,13 +142,17 @@ public class VirtualBuilder extends JFrame implements Builder {
 		// Add the canvas to the panel
 		panel.add(canvas.getVisualComponent());
 
-		new RotateThread().start();
-
 		return panel;
 	}
 
-	public static void main(String[] args) {
-		new VirtualBuilder();
+	public void rotate() {
+		if(rotateThread == null || !rotateThread.isAlive() || !rotateThread.isInterrupted())
+			(rotateThread = new Thread(new RotateThread())).start();
+	}
+
+	public void stopRotating() {
+		if(rotateThread != null || rotateThread.isAlive())
+			rotateThread.interrupt();
 	}
 
 	@Override
@@ -169,7 +175,8 @@ public class VirtualBuilder extends JFrame implements Builder {
 		return bottomMotor;
 	}
 
-	public class RotateThread extends Thread {
+	public class RotateThread implements Runnable {
+		@Override
 		public void run() {
 			try {
 				//rotateidx3d();
@@ -199,5 +206,9 @@ public class VirtualBuilder extends JFrame implements Builder {
 				Thread.sleep(50);
 			}
 		}
+	}
+
+	public static void main(String[] args) {
+		new VirtualBuilder();
 	}
 }
