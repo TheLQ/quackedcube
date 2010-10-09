@@ -27,14 +27,13 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 		</plugins>
 	</build>
 	<dependencies>
-  <!--
-	<dependency>
-
-      <groupId>${project.groupId}</groupId>
-      <artifactId>core</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-	-->
+		<!--Need that core!-->
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<!--Virtual Cube program as a library-->
 		<dependency>
 			<groupId>ch.randelshofer</groupId>
 			<artifactId>CubeTwister</artifactId>

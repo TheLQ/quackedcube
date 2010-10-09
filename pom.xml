@@ -11,9 +11,9 @@
 
 	<!--This doesn't contain any src files, only modules do-->
 	<modules>
+		<module>core</module>
 		<module>virtualCube</module>
 		<module>gui</module>
-		<module>core</module>
 	</modules>
 
 	<!--Licensed under GPL-->
