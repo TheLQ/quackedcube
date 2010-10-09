@@ -31,12 +31,10 @@ import ch.randelshofer.rubik.parser.DefaultNotation;
 import ch.randelshofer.rubik.parser.Notation;
 import idx3d.idx3d_JCanvas;
 import idx3d.idx3d_Scene;
+import java.awt.BorderLayout;
 import java.awt.Graphics;
-import java.awt.geom.Line2D;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import org.quackedcube.Builder;
@@ -47,7 +45,7 @@ import org.quackedcube.MotorPosition;
  *
  * @author Leon Blakey <lord.quackstar at gmail.com>
  */
-public class VirtualBuilder extends JFrame implements Builder {
+public class VirtualBuilder extends JPanel implements Builder {
 	private Notation notation = new DefaultNotation();
 	private Cube3DCanvas canvas;
 	private RubiksCubeGeom3D cube3d;
@@ -59,12 +57,6 @@ public class VirtualBuilder extends JFrame implements Builder {
 	private Thread rotateThread;
 
 	public VirtualBuilder() {
-		super("CubeTwister Rubik's Cube Panel Demo");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		add(createCube());
-		setSize(400, 400);
-		setVisible(true);
-
 		topMotor = new VirtualMotor(MotorPosition.TOP, cube);
 		bottomMotor = new VirtualMotor(MotorPosition.BOTTOM, cube);
 		leftMotor = new VirtualMotor(MotorPosition.LEFT, cube);
@@ -97,7 +89,7 @@ public class VirtualBuilder extends JFrame implements Builder {
 	public JPanel createCube() {
 		JPanel panel = new JPanel();
 		// Initializes the components and adds them to the panel
-		panel.setLayout(new java.awt.BorderLayout());
+		panel.setLayout(new BorderLayout());
 
 		// Creates a 3D model of the Rubik's Cube for the Idx3D rendering engine,
 		// and turns animation on.
@@ -209,6 +201,11 @@ public class VirtualBuilder extends JFrame implements Builder {
 	}
 
 	public static void main(String[] args) {
-		new VirtualBuilder();
+		VirtualBuilder virtualBuilder = new VirtualBuilder();
+		JFrame frame = new JFrame("CubeTwister Rubik's Cube Panel Demo");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.add(virtualBuilder.createCube());
+		frame.setSize(400, 400);
+		frame.setVisible(true);
 	}
 }
