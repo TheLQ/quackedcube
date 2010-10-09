@@ -32,6 +32,7 @@ import ch.randelshofer.rubik.parser.Notation;
 import idx3d.idx3d_JCanvas;
 import idx3d.idx3d_Scene;
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Graphics;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -57,39 +58,17 @@ public class VirtualBuilder extends JPanel implements Builder {
 	private Thread rotateThread;
 
 	public VirtualBuilder() {
+		super(new BorderLayout());
+		add(createCube(),BorderLayout.CENTER);
 		topMotor = new VirtualMotor(MotorPosition.TOP, cube);
 		bottomMotor = new VirtualMotor(MotorPosition.BOTTOM, cube);
 		leftMotor = new VirtualMotor(MotorPosition.LEFT, cube);
 		rightMotor = new VirtualMotor(MotorPosition.RIGHT, cube);
-
-		new Thread() {
-			public void run() {
-				try {
-					Thread.sleep(1000);
-					topMotor.grip();
-					topMotor.spinLeft();
-					topMotor.spinRight();
-					bottomMotor.grip();
-					bottomMotor.spinLeft();
-					bottomMotor.spinRight();
-					leftMotor.grip();
-					leftMotor.spinLeft();
-					leftMotor.spinRight();
-					rightMotor.grip();
-					rightMotor.spinLeft();
-					rightMotor.spinRight();
-				} catch (InterruptedException ex) {
-					ex.printStackTrace();
-				}
-			}
-		}.start();
-
 	}
 
-	public JPanel createCube() {
-		JPanel panel = new JPanel();
+	public Component createCube() {
 		// Initializes the components and adds them to the panel
-		panel.setLayout(new BorderLayout());
+		//JPanel panel = new JPanel(new BorderLayout());
 
 		// Creates a 3D model of the Rubik's Cube for the Idx3D rendering engine,
 		// and turns animation on.
@@ -132,18 +111,43 @@ public class VirtualBuilder extends JPanel implements Builder {
 		canvas.setEnabled(true);
 
 		// Add the canvas to the panel
-		panel.add(canvas.getVisualComponent());
+		//panel.add(canvas.getVisualComponent(),BorderLayout.CENTER);
+		return canvas.getVisualComponent();
+		//return panel;
+	}
 
-		return panel;
+	public void testMove() {
+
+		new Thread() {
+			public void run() {
+				try {
+					Thread.sleep(1000);
+					topMotor.grip();
+					topMotor.spinLeft();
+					topMotor.spinRight();
+					bottomMotor.grip();
+					bottomMotor.spinLeft();
+					bottomMotor.spinRight();
+					leftMotor.grip();
+					leftMotor.spinLeft();
+					leftMotor.spinRight();
+					rightMotor.grip();
+					rightMotor.spinLeft();
+					rightMotor.spinRight();
+				} catch (InterruptedException ex) {
+					ex.printStackTrace();
+				}
+			}
+		}.start();
 	}
 
 	public void rotate() {
-		if(rotateThread == null || !rotateThread.isAlive() || !rotateThread.isInterrupted())
+		if (rotateThread == null || !rotateThread.isAlive() || !rotateThread.isInterrupted())
 			(rotateThread = new Thread(new RotateThread())).start();
 	}
 
 	public void stopRotating() {
-		if(rotateThread != null || rotateThread.isAlive())
+		if (rotateThread != null || rotateThread.isAlive())
 			rotateThread.interrupt();
 	}
 
