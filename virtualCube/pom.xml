@@ -12,12 +12,28 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
   <artifactId>virtualCube</artifactId>
   <name>virtualCube</name>
   <packaging>jar</packaging>
-  <dependencies>
-    <dependency>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.0.2</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <dependencies>
+  <!--
+	<dependency>
+
       <groupId>${project.groupId}</groupId>
       <artifactId>core</artifactId>
       <version>${project.version}</version>
     </dependency>
+	-->
     <dependency>
       <groupId>ch.randelshofer</groupId>
       <artifactId>CubeTwister</artifactId>
