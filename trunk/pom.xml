@@ -44,10 +44,13 @@
 			</plugin>
 			<!--License Headers-->
 			<plugin>
+				<inherited>false</inherited>
 				<groupId>com.mycila.maven-license-plugin</groupId>
 				<artifactId>maven-license-plugin</artifactId>
 				<configuration>
-					<header>license-header.txt</header>
+					<failIfMissing>true</failIfMissing>
+					<aggregate>true</aggregate>
+					<header>LicenseHeader.txt</header>
 					<properties>
 						<email>lord.quackstar at gmail.com</email>
 						<name>Leon Blakey</name>
