@@ -20,7 +20,6 @@ package org.quackedcube.virtualcube;
 
 import ch.randelshofer.geom3d.JCanvas3D;
 import ch.randelshofer.geom3d.Scene3D;
-import ch.randelshofer.geom3d.Transform3D;
 import ch.randelshofer.geom3d.Transform3DModel;
 import ch.randelshofer.rubik.Cube3DCanvas;
 import ch.randelshofer.rubik.Cube3DCanvasGeom3D;
@@ -29,27 +28,22 @@ import ch.randelshofer.rubik.RubiksCube;
 import ch.randelshofer.rubik.RubiksCubeGeom3D;
 import ch.randelshofer.rubik.parser.DefaultNotation;
 import ch.randelshofer.rubik.parser.Notation;
-import idx3d.idx3d_Camera;
 import idx3d.idx3d_JCanvas;
-import idx3d.idx3d_Matrix;
 import idx3d.idx3d_Scene;
-import java.awt.Component;
-import java.lang.reflect.InvocationTargetException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import org.quackedcube.Utils;
 
 /**
  *
  * @author Leon Blakey <lord.quackstar at gmail.com>
  */
-public class Builder extends JFrame {
+public class VirtualBuilder extends JFrame {
 	private Notation notation = new DefaultNotation();
 	private Cube3DCanvas canvas;
 	private RubiksCubeGeom3D cube3d;
 	private RubiksCube cube;
 
-	public Builder() {
+	public VirtualBuilder() {
 		super("CubeTwister Rubik's Cube Panel Demo");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		add(createCube());
@@ -128,6 +122,6 @@ public class Builder extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		new Builder();
+		new VirtualBuilder();
 	}
 }
