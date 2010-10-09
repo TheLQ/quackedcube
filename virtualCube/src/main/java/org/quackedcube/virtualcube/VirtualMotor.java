@@ -37,8 +37,12 @@ public class VirtualMotor implements Motor {
 	protected boolean gripped = false;
 
 	public VirtualMotor(MotorPosition position, AbstractCube cube) {
+		if (position == null || cube == null)
+			throw new InvalidParameterException("Null parameter! Position: " + position + " | Cube: " + cube);
+
 		this.position = position;
 		this.cube = cube;
+
 		if (position == MotorPosition.TOP) {
 			axis = 1;
 			layer = 4;
