@@ -47,7 +47,7 @@ import org.quackedcube.virtualcube.VirtualBuilder;
 public class Gui extends JFrame {
 	Clock clock;
 	VirtualBuilder virtualCube;
-	Dimension frameSize = new Dimension(800, 800);
+	Dimension frameSize = new Dimension(850, 800);
 
 	public Gui() {
 		super("QuackedCube Controller");
@@ -78,7 +78,7 @@ public class Gui extends JFrame {
 		clock.setFont(new Font("Arial", Font.PLAIN, 180));
 		clock.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Timer"));
 		clock.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-		clock.setAlignmentY(JComponent.CENTER_ALIGNMENT);
+		//clock.setAlignmentY(JComponent.CENTER_ALIGNMENT);
 
 
 		clockPanel.add(clock, BorderLayout.CENTER);
@@ -91,11 +91,12 @@ public class Gui extends JFrame {
 		//Virtual Cube panel
 		virtualCubePanel.add(virtualCube = new VirtualBuilder(), BorderLayout.CENTER);
 		JPanel virtualCubeControl = new JPanel();
-		virtualCubeControl.setLayout(new BoxLayout(virtualCubeControl, BoxLayout.LINE_AXIS));
+		virtualCubeControl.setLayout(new BoxLayout(virtualCubeControl, BoxLayout.Y_AXIS));
+		virtualCubeControl.setAlignmentX(JComponent.CENTER_ALIGNMENT);
 		virtualCubeControl.add(new JButton("Rotate") {
 			{
 				final JButton self = this;
-				setAlignmentX(Component.CENTER_ALIGNMENT);
+				setAlignmentX(JComponent.CENTER_ALIGNMENT);
 				addActionListener(new ActionListener() {
 					final String start = "Rotate";
 					final String end = "Stop Rotating";
