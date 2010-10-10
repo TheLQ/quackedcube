@@ -41,6 +41,8 @@ import javax.swing.JPanel;
 import org.quackedcube.Builder;
 import org.quackedcube.Motor;
 import org.quackedcube.MotorPosition;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -56,6 +58,7 @@ public class VirtualBuilder extends JPanel implements Builder {
 	private final VirtualMotor leftMotor;
 	private final VirtualMotor rightMotor;
 	private Thread rotateThread;
+	private final Logger log = LoggerFactory.getLogger(getClass());
 
 	public VirtualBuilder() {
 		super(new BorderLayout());
@@ -91,9 +94,9 @@ public class VirtualBuilder extends JPanel implements Builder {
 			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
 				if (evt.getPropertyName().equals(DefaultCubeAttributes.ALPHA_PROPERTY))
-					System.out.println("Alpha: " + evt.getNewValue());
+					log.debug("Alpha: " + evt.getNewValue());
 				else if (evt.getPropertyName().equals(DefaultCubeAttributes.BETA_PROPERTY))
-					System.out.println("Beta: " + evt.getNewValue());
+					log.debug("Beta: " + evt.getNewValue());
 			}
 		});
 		//attr.setStickerFillColor(0, Color.GREEN);
@@ -111,9 +114,8 @@ public class VirtualBuilder extends JPanel implements Builder {
 		canvas.setEnabled(true);
 
 		// Add the canvas to the panel
-		//panel.add(canvas.getVisualComponent(),BorderLayout.CENTER);
+		log.info("Created 3x3 virtual cube");
 		return canvas.getVisualComponent();
-		//return panel;
 	}
 
 	public void testMove() {

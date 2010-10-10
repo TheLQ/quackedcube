@@ -77,7 +77,7 @@
 	</build>
 	
 	<dependencies>
-    <!--Use TestNG as testing framework-->
+		<!--Use TestNG as testing framework-->
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
@@ -95,6 +95,12 @@
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
 			<version>2.5</version>
+		</dependency>
+		<!--Use logback for logging-->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>0.9.24</version>
 		</dependency>
 	</dependencies>
 

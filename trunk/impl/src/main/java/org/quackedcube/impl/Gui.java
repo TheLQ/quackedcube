@@ -18,6 +18,7 @@
  */
 package org.quackedcube.impl;
 
+import ch.qos.logback.classic.Level;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -33,12 +34,15 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTextPane;
 import javax.swing.Timer;
 import org.apache.commons.lang.time.DurationFormatUtils;
 import org.apache.commons.lang.time.StopWatch;
 import org.quackedcube.virtualcube.VirtualBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -47,13 +51,29 @@ import org.quackedcube.virtualcube.VirtualBuilder;
 public class Gui extends JFrame {
 	Clock clock;
 	VirtualBuilder virtualCube;
-	Dimension frameSize = new Dimension(850, 800);
+	Dimension frameSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+	public final JTextPane logPane;
+	public final JScrollPane logScroll;
+	public final LoggingAppender appender;
+	public final Logger log = LoggerFactory.getLogger(getClass());
 
 	public Gui() {
 		super("QuackedCube Controller");
+		frameSize.height -= 40;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(frameSize);
 		setVisible(true);
+
+		//Logging
+		logPane = new JTextPane();
+		logScroll = new JScrollPane(logPane);
+		ch.qos.logback.classic.Logger rootLog = (ch.qos.logback.classic.Logger) LoggerFactory.getLogger("root");
+		rootLog.getLoggerContext().reset();
+		rootLog.setLevel(Level.ALL);
+		rootLog.detachAndStopAllAppenders();
+		rootLog.addAppender(appender = new LoggingAppender(logPane, logScroll, rootLog.getLoggerContext()));
+
+		//Add and paint
 		add(generateContent());
 		validate();
 		repaint();
@@ -66,27 +86,25 @@ public class Gui extends JFrame {
 		JPanel logPanel = new JPanel(new BorderLayout());
 		JSplitPane verticalSplit = Utils.createSplitPane(JSplitPane.HORIZONTAL_SPLIT, virtualCubePanel, logPanel);
 		JSplitPane horozontalSplit = Utils.createSplitPane(JSplitPane.VERTICAL_SPLIT, clockPanel, verticalSplit);
-		verticalSplit.setDividerLocation(400);
+		verticalSplit.setDividerLocation((int) (frameSize.getWidth() * 0.35));
 		horozontalSplit.setDividerLocation(200);
 		virtualCubePanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Cube Position"));
 		logPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Log"));
 
 		//Clock setup
 		clock = new Clock();
-		//clock.setForeground(Color.yellow);
 		clock.setPreferredSize(new Dimension((int) clock.getPreferredSize().getWidth(), 100));
 		clock.setFont(new Font("Arial", Font.PLAIN, 180));
 		clock.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Timer"));
 		clock.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-		//clock.setAlignmentY(JComponent.CENTER_ALIGNMENT);
-
-
 		clockPanel.add(clock, BorderLayout.CENTER);
 
 		//Logging panel setup
-		JTextPane logPane = new JTextPane();
-		logPanel.add(logPane, BorderLayout.CENTER);
-		logPane.setText("Hello there buddy");
+		logScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		logScroll.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		logPane.setEditable(false);
+		logPane.setAlignmentX(Component.CENTER_ALIGNMENT);
+		logPanel.add(logScroll, BorderLayout.CENTER);
 
 		//Virtual Cube panel
 		virtualCubePanel.add(virtualCube = new VirtualBuilder(), BorderLayout.CENTER);
@@ -144,6 +162,7 @@ public class Gui extends JFrame {
 			}
 		});
 		StopWatch watch = new StopWatch();
+		private final Logger log = LoggerFactory.getLogger(this.getClass());
 
 		public Clock() {
 			super("", JLabel.CENTER);
@@ -163,7 +182,7 @@ public class Gui extends JFrame {
 				watch.start();
 			else
 				watch.resume();
-			System.out.println("Starting...");
+			log.debug("Starting...");
 		}
 
 		public void stop() {
@@ -171,7 +190,7 @@ public class Gui extends JFrame {
 			watchRan = true;
 			watch.suspend();
 			timer.stop();
-			System.out.println("Stopping");
+			log.debug("Stopping");
 		}
 
 		@Override
@@ -180,7 +199,6 @@ public class Gui extends JFrame {
 				stop();
 			else
 				start();
-			System.out.println("Recieved Clicked");
 		}
 
 		@Override
