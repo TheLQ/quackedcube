@@ -117,7 +117,6 @@ public class VirtualBuilder extends JPanel implements Builder {
 	}
 
 	public void testMove() {
-
 		new Thread() {
 			public void run() {
 				try {
@@ -151,6 +150,10 @@ public class VirtualBuilder extends JPanel implements Builder {
 			rotateThread.interrupt();
 	}
 
+	public void resetPosition() {
+		cube3d.getAnimator().run();
+	}
+
 	@Override
 	public Motor getTopMotor() {
 		return topMotor;
@@ -177,18 +180,16 @@ public class VirtualBuilder extends JPanel implements Builder {
 			try {
 				//rotateidx3d();
 				rotateGeom3D();
-			} catch (Exception ex) {
-				ex.printStackTrace();
+			} catch (InterruptedException ex) {
+				//Don't care
 			}
 		}
 
 		public void rotateGeom3D() throws InterruptedException {
 			JCanvas3D jcanvas = (JCanvas3D) canvas.getVisualComponent();
 			Scene3D scene = jcanvas.getScene();
-			//canvas3D.setTransform(new Transform3D(0,Math.PI,Math.PI));
-			//Transform3D transform = scene.getTransform();
-			Transform3DModel transformModel = jcanvas.getTransformModel();
 
+			Transform3DModel transformModel = jcanvas.getTransformModel();
 			while (true) {
 				transformModel.rotate((float) 0.03, (float) 0.05, 0);
 				Thread.sleep(50);
