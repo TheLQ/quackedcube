@@ -23,6 +23,8 @@ import ch.randelshofer.rubik.AbstractCube;
 import java.security.InvalidParameterException;
 import org.quackedcube.Motor;
 import org.quackedcube.MotorPosition;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -35,6 +37,7 @@ public class VirtualMotor implements Motor {
 	protected final int layer;
 	protected final int direction;
 	protected boolean gripped = false;
+	private final Logger log = LoggerFactory.getLogger(getClass());
 
 	public VirtualMotor(MotorPosition position, AbstractCube cube) {
 		if (position == null || cube == null)
@@ -62,6 +65,8 @@ public class VirtualMotor implements Motor {
 		} else
 			//Somethings wrong!
 			throw new InvalidParameterException("Unkown motor position! " + position);
+
+		log.info("Virtual motor sucessfully created for "+position);
 	}
 
 	@Override
