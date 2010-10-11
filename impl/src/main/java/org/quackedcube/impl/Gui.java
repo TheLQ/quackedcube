@@ -16,6 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with QuackedCube.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package org.quackedcube.impl;
 
 import ch.qos.logback.classic.Level;
