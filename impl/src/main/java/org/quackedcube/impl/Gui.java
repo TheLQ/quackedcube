@@ -39,6 +39,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTextPane;
 import javax.swing.Timer;
+import net.miginfocom.swing.MigLayout;
 import org.apache.commons.lang.time.DurationFormatUtils;
 import org.apache.commons.lang.time.StopWatch;
 import org.quackedcube.virtualcube.VirtualBuilder;
@@ -85,10 +86,6 @@ public class Gui extends JFrame {
 		JPanel clockPanel = new JPanel(new BorderLayout());
 		JPanel virtualCubePanel = new JPanel(new BorderLayout());
 		JPanel logPanel = new JPanel(new BorderLayout());
-		JSplitPane verticalSplit = Utils.createSplitPane(JSplitPane.HORIZONTAL_SPLIT, virtualCubePanel, logPanel);
-		JSplitPane horozontalSplit = Utils.createSplitPane(JSplitPane.VERTICAL_SPLIT, clockPanel, verticalSplit);
-		verticalSplit.setDividerLocation((int) (frameSize.getWidth() * 0.35));
-		horozontalSplit.setDividerLocation(200);
 		virtualCubePanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Cube Position"));
 		logPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Log"));
 
@@ -108,7 +105,9 @@ public class Gui extends JFrame {
 		logPanel.add(logScroll, BorderLayout.CENTER);
 
 		//Virtual Cube panel
+		log.trace("Creating virtual cube");
 		virtualCubePanel.add(virtualCube = new VirtualBuilder(), BorderLayout.CENTER);
+		log.trace("Done creating virtual cube.");
 		JPanel virtualCubeControl = new JPanel();
 		virtualCubeControl.setLayout(new BoxLayout(virtualCubeControl, BoxLayout.Y_AXIS));
 		virtualCubeControl.setAlignmentX(JComponent.CENTER_ALIGNMENT);
@@ -133,6 +132,7 @@ public class Gui extends JFrame {
 				});
 			}
 		});
+		virtualCubePanel.add(virtualCubeControl,BorderLayout.SOUTH);
 		/*virtualCubeControl.add(new JButton("Reset Position") {{
 		addActionListener(new ActionListener() {
 		@Override
@@ -145,7 +145,13 @@ public class Gui extends JFrame {
 
 		virtualCubePanel.add(virtualCubeControl, BorderLayout.SOUTH);
 
-		return horozontalSplit;
+		log.trace("Creating content pane");
+		JPanel contentPane = new JPanel(new MigLayout("fill", "fill", "fill"));
+		contentPane.add(clock,"dock north"); //span 2, hmax 25%, wrap
+		contentPane.add(virtualCubePanel,"growprio 20");
+		contentPane.add(logPanel,"span 1 2");
+
+		return contentPane;
 	}
 
 	public class Clock extends JLabel implements MouseListener {
