@@ -16,27 +16,25 @@
  * You should have received a copy of the GNU General Public License
  * along with QuackedCube.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package org.quackedcube.impl;
 
 import ch.qos.logback.classic.Level;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
 import javax.swing.JTextPane;
 import javax.swing.Timer;
 import net.miginfocom.swing.MigLayout;
@@ -108,13 +106,10 @@ public class Gui extends JFrame {
 		log.trace("Creating virtual cube");
 		virtualCubePanel.add(virtualCube = new VirtualBuilder(), BorderLayout.CENTER);
 		log.trace("Done creating virtual cube.");
-		JPanel virtualCubeControl = new JPanel();
-		virtualCubeControl.setLayout(new BoxLayout(virtualCubeControl, BoxLayout.Y_AXIS));
-		virtualCubeControl.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+		JPanel virtualCubeControl = new JPanel(new FlowLayout());
 		virtualCubeControl.add(new JButton("Rotate") {
 			{
 				final JButton self = this;
-				setAlignmentX(JComponent.CENTER_ALIGNMENT);
 				addActionListener(new ActionListener() {
 					final String start = "Rotate";
 					final String end = "Stop Rotating";
@@ -132,24 +127,24 @@ public class Gui extends JFrame {
 				});
 			}
 		});
-		virtualCubePanel.add(virtualCubeControl,BorderLayout.SOUTH);
-		/*virtualCubeControl.add(new JButton("Reset Position") {{
-		addActionListener(new ActionListener() {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-		Gui.this.virtualCube.resetPosition();
-		}
+		virtualCubeControl.add(new JButton("Reset Position") {
+			{
+				addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						Gui.this.virtualCube.resetPosition();
+					}
+				});
+				setEnabled(false);
+			}
 		});
-		}
-		});*/
-
 		virtualCubePanel.add(virtualCubeControl, BorderLayout.SOUTH);
 
 		log.trace("Creating content pane");
 		JPanel contentPane = new JPanel(new MigLayout("fill", "fill", "fill"));
-		contentPane.add(clock,"dock north"); //span 2, hmax 25%, wrap
-		contentPane.add(virtualCubePanel,"growprio 20");
-		contentPane.add(logPanel,"span 1 2");
+		contentPane.add(clock, "dock north"); //span 2, hmax 25%, wrap
+		contentPane.add(virtualCubePanel, "growprio 20");
+		contentPane.add(logPanel, "span 1 2");
 
 		return contentPane;
 	}

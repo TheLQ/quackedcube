@@ -17,8 +17,6 @@
  * along with QuackedCube.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-
 package org.quackedcube.impl;
 
 /**
