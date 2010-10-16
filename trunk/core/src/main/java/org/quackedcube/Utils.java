@@ -17,7 +17,6 @@
  * along with QuackedCube.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 package org.quackedcube;
 
 import java.lang.reflect.Field;
@@ -29,7 +28,7 @@ import java.lang.reflect.Method;
  * @author Leon Blakey <lord.quackstar at gmail.com>
  */
 public class Utils {
-public static Field getField(Object inst, String name) throws NoSuchFieldException, SecurityException {
+	public static Field getField(Object inst, String name) throws NoSuchFieldException, SecurityException {
 		Field field = inst.getClass().getDeclaredField(name);
 		field.setAccessible(true);
 		return field;

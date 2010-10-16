@@ -17,8 +17,6 @@
  * along with QuackedCube.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-
 package org.quackedcube;
 
 /**
@@ -26,8 +24,11 @@ package org.quackedcube;
  * @author Leon Blakey <lord.quackstar at gmail.com>
  */
 public interface Builder {
-public Motor getTopMotor();
-public Motor getLeftMotor();
-public Motor getRightMotor();
-public Motor getBottomMotor();
+	public Motor getTopMotor();
+
+	public Motor getLeftMotor();
+
+	public Motor getRightMotor();
+
+	public Motor getBottomMotor();
 }
