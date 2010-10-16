@@ -62,7 +62,7 @@ public class VirtualBuilder extends JPanel implements Builder {
 
 	public VirtualBuilder() {
 		super(new BorderLayout());
-		add(createCube(),BorderLayout.CENTER);
+		add(createCube(), BorderLayout.CENTER);
 		topMotor = new VirtualMotor(MotorPosition.TOP, cube);
 		bottomMotor = new VirtualMotor(MotorPosition.BOTTOM, cube);
 		leftMotor = new VirtualMotor(MotorPosition.LEFT, cube);

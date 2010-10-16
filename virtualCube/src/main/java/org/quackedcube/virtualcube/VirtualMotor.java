@@ -66,7 +66,7 @@ public class VirtualMotor implements Motor {
 			//Somethings wrong!
 			throw new InvalidParameterException("Unkown motor position! " + position);
 
-		log.info("Virtual motor sucessfully created for "+position);
+		log.info("Virtual motor sucessfully created for " + position);
 	}
 
 	@Override
